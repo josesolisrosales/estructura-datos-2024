@@ -1,16 +1,19 @@
 package org.print3d.Objects;
 
-import java.util.*;
+import org.print3d.DataStructures.Set;
+import org.print3d.DataStructures.Tree;
 
 public class FilamentCompatibilityGraph {
-    private Map<String, Set<String>> adjacencyList;
+    private Tree<String, Set<String>> adjacencyList;
 
     public FilamentCompatibilityGraph() {
-        adjacencyList = new HashMap<>();
+        adjacencyList = new Tree<>();
     }
 
     public void addNode(String node) {
-        adjacencyList.putIfAbsent(node, new HashSet<>());
+        if (!adjacencyList.containsKey(node)) {
+            adjacencyList.put(node, new Set<>());
+        }
     }
 
     public void addEdge(String source, String destination) {
@@ -19,21 +22,27 @@ public class FilamentCompatibilityGraph {
     }
 
     public Set<String> getCompatibleNodes(String node) {
-        return adjacencyList.getOrDefault(node, new HashSet<>());
+        Set<String> result = adjacencyList.get(node);
+        return result != null ? result : new Set<>();
     }
 
     public boolean areCompatible(String node1, String node2) {
-        Set<String> compatibleWithNode1 = adjacencyList.getOrDefault(node1, new HashSet<>());
+        Set<String> compatibleWithNode1 = getCompatibleNodes(node1);
         return compatibleWithNode1.contains(node2);
     }
 
     public void removeNode(String node) {
-        adjacencyList.values().forEach(e -> e.remove(node));
+        Set<String> keySet = adjacencyList.keySet();
+        for (String key : keySet) {
+            adjacencyList.get(key).remove(node);
+        }
         adjacencyList.remove(node);
     }
 
     public void removeEdge(String source, String destination) {
-        adjacencyList.get(source).remove(destination);
-        adjacencyList.get(destination).remove(source);
+        Set<String> sourceSet = adjacencyList.get(source);
+        Set<String> destSet = adjacencyList.get(destination);
+        if (sourceSet != null) sourceSet.remove(destination);
+        if (destSet != null) destSet.remove(source);
     }
 }

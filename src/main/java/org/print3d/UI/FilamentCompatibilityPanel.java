@@ -3,10 +3,10 @@ package org.print3d.UI;
 import org.print3d.ObjectManager;
 import org.print3d.Objects.FilamentType;
 import org.print3d.Objects.Printer;
+import org.print3d.DataStructures.Set;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Set;
 
 public class FilamentCompatibilityPanel extends JPanel {
     private ObjectManager objectManager;

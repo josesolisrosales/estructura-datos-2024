@@ -1,16 +1,16 @@
 package org.print3d.Objects;
 
-import java.util.ArrayList;
+import org.print3d.DataStructures.DoubleLinkedList;
 
 public class Printer {
     private String brand;
-    private ArrayList<FilamentType> compatibleFilamentTypes;
+    private DoubleLinkedList<FilamentType> compatibleFilamentTypes;
     private int dimensionX;
     private int dimensionY;
     private int dimensionZ;
     private String state;
 
-    public Printer(String brand, ArrayList<FilamentType> compatibleFilamentTypes, int dimensionX, int dimensionY, int dimensionZ, String state) {
+    public Printer(String brand, DoubleLinkedList<FilamentType> compatibleFilamentTypes, int dimensionX, int dimensionY, int dimensionZ, String state) {
         this.brand = brand;
         this.compatibleFilamentTypes = compatibleFilamentTypes;
         this.dimensionX = dimensionX;
@@ -23,7 +23,7 @@ public class Printer {
         return brand;
     }
 
-    public ArrayList<FilamentType> getCompatibleFilamentTypes() {
+    public DoubleLinkedList<FilamentType> getCompatibleFilamentTypes() {
         return compatibleFilamentTypes;
     }
 
@@ -50,5 +50,16 @@ public class Printer {
     @Override
     public String toString() {
         return brand + " (" + dimensionX + "x" + dimensionY + "x" + dimensionZ + "mm)";
+    }
+
+    public String getCompatibleFilamentTypesString() {
+        StringBuilder sb = new StringBuilder();
+        for (FilamentType type : compatibleFilamentTypes) {
+            if (sb.length() > 0) {
+                sb.append(", ");
+            }
+            sb.append(type.getType());
+        }
+        return sb.toString();
     }
 }

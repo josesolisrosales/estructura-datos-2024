@@ -1,7 +1,4 @@
-package org.print3d;
-
-import java.util.ArrayList;
-import java.util.List;
+package org.print3d.DataStructures;
 
 public class CircularList<T> {
     private final T[] elements;
@@ -30,18 +27,29 @@ public class CircularList<T> {
         }
     }
 
-    public List<T> getElements() {
-        List<T> result = new ArrayList<>(size);
-        int current = head;
-        for (int i = 0; i < size; i++) {
-            result.add(elements[current]);
-            current = (current + 1) % capacity;
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
-        return result;
+        int actualIndex = (head + index) % capacity;
+        return elements[actualIndex];
     }
 
     public int size() {
         return size;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < size; i++) {
+            if (i > 0) {
+                sb.append(", ");
+            }
+            sb.append(get(i));
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }

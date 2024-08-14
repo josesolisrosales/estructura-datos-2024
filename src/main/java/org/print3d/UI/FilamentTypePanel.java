@@ -55,26 +55,26 @@ public class FilamentTypePanel extends JPanel {
         gbc.gridx = 1;
         inputPanel.add(typeField, gbc);
         gbc.gridx = 2;
-        inputPanel.add(new JLabel("Temp. Extrusión:"), gbc);
+        inputPanel.add(new JLabel("Temp. Extrusión (C):"), gbc);
         gbc.gridx = 3;
         inputPanel.add(extrusionTempField, gbc);
         gbc.gridx = 4;
-        inputPanel.add(new JLabel("Temp. Cama:"), gbc);
+        inputPanel.add(new JLabel("Temp. Cama (C):"), gbc);
         gbc.gridx = 5;
         inputPanel.add(bedTempField, gbc);
 
         // Second row
         gbc.gridy = 1;
         gbc.gridx = 0;
-        inputPanel.add(new JLabel("Temp. Ambiente:"), gbc);
+        inputPanel.add(new JLabel("Temp. Ambiente (C):"), gbc);
         gbc.gridx = 1;
         inputPanel.add(ambientTempField, gbc);
         gbc.gridx = 2;
-        inputPanel.add(new JLabel("Temp. Secado:"), gbc);
+        inputPanel.add(new JLabel("Temp. Secado (C):"), gbc);
         gbc.gridx = 3;
         inputPanel.add(dryingTempField, gbc);
         gbc.gridx = 4;
-        inputPanel.add(new JLabel("Tiempo Secado:"), gbc);
+        inputPanel.add(new JLabel("Tiempo Secado (minutos):"), gbc);
         gbc.gridx = 5;
         inputPanel.add(dryingTimeField, gbc);
 
@@ -85,7 +85,7 @@ public class FilamentTypePanel extends JPanel {
         gbc.gridx = 1;
         inputPanel.add(daysBetweenCyclesField, gbc);
         gbc.gridx = 2;
-        inputPanel.add(new JLabel("Velocidad Impresión:"), gbc);
+        inputPanel.add(new JLabel("Velocidad Impresión (mm/s):"), gbc);
         gbc.gridx = 3;
         inputPanel.add(printingSpeedField, gbc);
 

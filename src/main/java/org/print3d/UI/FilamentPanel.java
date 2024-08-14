@@ -68,15 +68,15 @@ public class FilamentPanel extends JPanel {
         // Second row
         gbc.gridy = 1;
         gbc.gridx = 0;
-        inputPanel.add(new JLabel("Diámetro:"), gbc);
+        inputPanel.add(new JLabel("Diámetro (mm):"), gbc);
         gbc.gridx = 1;
         inputPanel.add(diameterField, gbc);
         gbc.gridx = 2;
-        inputPanel.add(new JLabel("Peso:"), gbc);
+        inputPanel.add(new JLabel("Peso (kg):"), gbc);
         gbc.gridx = 3;
         inputPanel.add(weightField, gbc);
         gbc.gridx = 4;
-        inputPanel.add(new JLabel("Fecha de Compra:"), gbc);
+        inputPanel.add(new JLabel("Fecha de Compra (YYYY-MM-DD):"), gbc);
         gbc.gridx = 5;
         inputPanel.add(purchaseDateField, gbc);
 

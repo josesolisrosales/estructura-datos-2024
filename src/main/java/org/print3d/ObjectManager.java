@@ -1,9 +1,9 @@
 package org.print3d;
 
 import org.print3d.Objects.*;
+import org.print3d.DataStructures.*; // Estructuras de datos sin librerias externas
 
 import java.time.LocalDate;
-import java.util.*;
 
 public class ObjectManager {
     private final DoubleLinkedList<FilamentType> filamentTypes;
@@ -17,7 +17,7 @@ public class ObjectManager {
         printers = new Stack<>();
         filamentTypes = new DoubleLinkedList<>();
         filaments = new DoubleLinkedList<>();
-        nozzles = new LinkedList<>();
+        nozzles = new Queue<>();
         prints = new CircularList<>(10);
         compatibilityGraph = new FilamentCompatibilityGraph();
         initializeData();
@@ -40,7 +40,7 @@ public class ObjectManager {
         filaments.add(new Filament("Brand3", petg, "Green", 1.75f, 1000f, LocalDate.now().minusDays(7)));
 
 
-        ArrayList<FilamentType> allTypes = new ArrayList<>();
+        DoubleLinkedList<FilamentType> allTypes = new DoubleLinkedList<>();
         allTypes.add(pla);
         allTypes.add(abs);
         allTypes.add(petg);

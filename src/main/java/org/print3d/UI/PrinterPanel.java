@@ -4,12 +4,13 @@ import org.print3d.Objects.FilamentType;
 import org.print3d.ObjectManager;
 import org.print3d.Objects.Printer;
 
+import org.print3d.DataStructures.DoubleLinkedList;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class PrinterPanel extends JPanel {
     private ObjectManager objectManager;
@@ -97,7 +98,10 @@ public class PrinterPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String brand = brandField.getText();
-                    ArrayList<FilamentType> selectedTypes = new ArrayList<>(filamentTypeList.getSelectedValuesList());
+                    DoubleLinkedList<FilamentType> selectedTypes = new DoubleLinkedList<>();
+                    for (FilamentType type : filamentTypeList.getSelectedValuesList()) {
+                        selectedTypes.add(type);
+                    }
                     int dimensionX = Integer.parseInt(dimensionXField.getText());
                     int dimensionY = Integer.parseInt(dimensionYField.getText());
                     int dimensionZ = Integer.parseInt(dimensionZField.getText());
@@ -134,7 +138,7 @@ public class PrinterPanel extends JPanel {
         for (Printer printer : objectManager.getPrinters()) {
             printerTableModel.addRow(new Object[]{
                     printer.getBrand(),
-                    printer.getCompatibleFilamentTypes().toString(),
+                    printer.getCompatibleFilamentTypesString(),
                     printer.getDimensionX() + "x" + printer.getDimensionY() + "x" + printer.getDimensionZ(),
                     printer.getState()
             });

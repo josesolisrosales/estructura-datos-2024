@@ -1,5 +1,6 @@
 package org.print3d.UI;
 
+import org.print3d.DataStructures.CircularList;
 import org.print3d.Objects.Filament;
 import org.print3d.ObjectManager;
 import org.print3d.Objects.Print;
@@ -102,7 +103,8 @@ public class PrintPanel extends JPanel {
         completeButton.addActionListener(e -> {
             int selectedRow = table.getSelectedRow();
             if (selectedRow != -1) {
-                Print print = objectManager.getPrints().getElements().get(selectedRow);
+                CircularList<Print> prints = objectManager.getPrints();
+                Print print = prints.get(selectedRow);
                 if (print.getEndTime() == null) {
                     print.completePrint();
                     updatePrintTable();
@@ -118,7 +120,9 @@ public class PrintPanel extends JPanel {
     private void updatePrintTable() {
         printTableModel.setRowCount(0);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        for (Print print : objectManager.getPrints().getElements()) {
+        CircularList<Print> prints = objectManager.getPrints();
+        for (int i = 0; i < prints.size(); i++) {
+            Print print = prints.get(i);
             printTableModel.addRow(new Object[]{
                     print.getName(),
                     print.getId(),

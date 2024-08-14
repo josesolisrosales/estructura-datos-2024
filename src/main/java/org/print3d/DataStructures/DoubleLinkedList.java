@@ -1,9 +1,10 @@
-package org.print3d;
+package org.print3d.DataStructures;
 
 import java.lang.reflect.Array;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-@SuppressWarnings("ALL")
-public class DoubleLinkedList<T> {
+public class DoubleLinkedList<T> implements Iterable<T> {
     private Node<T> head;
     private Node<T> tail;
 
@@ -70,5 +71,43 @@ public class DoubleLinkedList<T> {
             current = current.next;
         }
         return size;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private Node<T> current = head;
+
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                T data = current.data;
+                current = current.next;
+                return data;
+            }
+        };
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        Node<T> current = head;
+        while (current != null) {
+            sb.append(current.data);
+            if (current.next != null) {
+                sb.append(", ");
+            }
+            current = current.next;
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
