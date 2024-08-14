@@ -3,10 +3,7 @@ package org.print3d;
 import org.print3d.Objects.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Stack;
-import java.util.Queue;
+import java.util.*;
 
 public class ObjectManager {
     private final DoubleLinkedList<FilamentType> filamentTypes;
@@ -14,6 +11,7 @@ public class ObjectManager {
     private final Stack<Printer> printers;
     private final Queue<Nozzle> nozzles;
     private final CircularList<Print> prints;
+    private final FilamentCompatibilityGraph compatibilityGraph;
 
     public ObjectManager() {
         printers = new Stack<>();
@@ -21,6 +19,7 @@ public class ObjectManager {
         filaments = new DoubleLinkedList<>();
         nozzles = new LinkedList<>();
         prints = new CircularList<>(10);
+        compatibilityGraph = new FilamentCompatibilityGraph();
         initializeData();
     }
 
@@ -70,6 +69,16 @@ public class ObjectManager {
             print1.completePrint();
             prints.add(print1);
             prints.add(print2);
+        }
+
+        for (FilamentType type : filamentTypes.toArray(new FilamentType[0])) {
+            compatibilityGraph.addNode(type.getType());
+        }
+        for (Printer printer : printers) {
+            compatibilityGraph.addNode(printer.getBrand());
+            for (FilamentType type : printer.getCompatibleFilamentTypes()) {
+                compatibilityGraph.addEdge(printer.getBrand(), type.getType());
+            }
         }
 
     }
@@ -131,5 +140,25 @@ public class ObjectManager {
 
     public void addPrint(Print print) {
         prints.add(print);
+    }
+
+    public void addFilamentTypeCompatibility(String filamentType, String printerBrand) {
+        compatibilityGraph.addEdge(filamentType, printerBrand);
+    }
+
+    public void removeFilamentTypeCompatibility(String filamentType, String printerBrand) {
+        compatibilityGraph.removeEdge(filamentType, printerBrand);
+    }
+
+    public boolean areCompatible(String filamentType, String printerBrand) {
+        return compatibilityGraph.areCompatible(filamentType, printerBrand);
+    }
+
+    public Set<String> getCompatiblePrinters(String filamentType) {
+        return compatibilityGraph.getCompatibleNodes(filamentType);
+    }
+
+    public Set<String> getCompatibleFilamentTypes(String printerBrand) {
+        return compatibilityGraph.getCompatibleNodes(printerBrand);
     }
 }
