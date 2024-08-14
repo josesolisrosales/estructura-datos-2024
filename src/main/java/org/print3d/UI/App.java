@@ -35,6 +35,7 @@ public class App extends JFrame {
         tabbedPane.addTab("Impresoras", new PrinterPanel(objectManager));
         tabbedPane.addTab("Boquillas", new NozzlePanel(objectManager));
         tabbedPane.addTab("Impresiones", new PrintPanel(objectManager));
+        tabbedPane.addTab("Compatibilidad", new FilamentCompatibilityPanel(objectManager));
     }
 
     private JPanel createTabPanel(String content) {
